@@ -27,7 +27,7 @@ class Student{
     }
 
     Student(String name,int age,int rollNumber){
-        this(name,age,rollNumber, "python");
+        this(name,age,rollNumber, "VIT");
         IO.println("In three parameter Constructor");
     }
 
