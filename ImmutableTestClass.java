@@ -1,8 +1,8 @@
 
 public class ImmutableTestClass {
     void main(){
-        College collegeRef = new College("IIT Bombay", "Mumbai");
-        Student student = new Student("Sumit",98,collegeRef);
+        College1 collegeRef = new College1("IIT Bombay", "Mumbai");
+        Student1 student = new Student1("Sumit",98,collegeRef);
 
         System.out.println("Name: " +student.getName()+"\nAge : "+student.getAge()+
                 "\nCollege Name : "+ student.getCollege1().name+
@@ -20,15 +20,15 @@ public class ImmutableTestClass {
     }
 }
 
-class Student{
+class Student1{
    private final String name;
     private final int age;
     private final College1 college1;
 
-    Student(String name, int age, College college1){
+    Student1(String name, int age, College1 college1){
         this.name = name;
         this.age = age;
-        this.college1 = new College(college1.name,college1.address);   //redirecting to temp Object
+        this.college1 = new College1(college1.name,college1.address);   //redirecting to temp Object
 
     }
 
@@ -40,8 +40,8 @@ class Student{
         return this.name;
     }
 
-    public College getCollege1() {
-        return new College(this.college1.name, this.college1.address);
+    public College1 getCollege1() {
+        return new College1(this.college1.name, this.college1.address);
     }
 }
 
