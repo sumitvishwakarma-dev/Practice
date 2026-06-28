@@ -2,7 +2,6 @@ public class DemoIn {
     public static void main(String args []){
         A obj = new B();
         obj.show1();
-
         B obj2 = (B) obj;
         obj2.show2();
         obj2.show1();
