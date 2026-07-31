@@ -8,17 +8,17 @@ public class Main {
 
         StudentRepository studentRepository =  new StudentRepository();
 
-//        Student student = studentRepository.createStudent(
-//                new Student("Amai29t","Amai29ut1@gmail.com",27)
-//                );
-//
-//        System.out.println(" "+student);
+        Student student = studentRepository.createStudent(
+                new Student("Amai29t","Amai29ut1@gmail.com",27)
+                );
+
+        System.out.println(" "+student);
 
 //        studentRepository.getStudentById(1L);
 
-        studentRepository.getStudent();
+//        studentRepository.getStudent();
 
- //       studentRepository.updateStudent(new Student("Sumit","sumit1.v@gmail.com",25),1L);
+        // studentRepository.updateStudent(new Student("Sumit","sumit1.v@gmail.com",25),3L);
 
    //     studentRepository.deleteStudent(11L);
 

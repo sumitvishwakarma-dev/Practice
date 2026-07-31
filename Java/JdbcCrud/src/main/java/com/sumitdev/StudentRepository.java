@@ -6,7 +6,7 @@ public class StudentRepository {
 
     String url = "jdbc:mysql://localhost:3306/student_jdbcdemo";
     String username = "root";
-    String password = "";
+    String password = "Hello@123";
 
 
     public Student createStudent(Student student) {
@@ -36,7 +36,7 @@ public class StudentRepository {
             }
 
             if (rowAffected == 0) {
-                System.out.println("Student creation failed");
+                throw new RuntimeException("Student was not inserted");
             } else {
                 student.setId(id);
                 return student;
@@ -73,7 +73,7 @@ public class StudentRepository {
             int rowAffected = statement.executeUpdate();
 
             if (rowAffected == 0) {
-                System.out.println("Student updation failed");
+                throw new RuntimeException("Student updation failed id " +id+ " NOT FOUND");
             } else {
                 System.out.println("Student updation successful");
             }
@@ -100,13 +100,13 @@ public class StudentRepository {
             int rowAffected = statement.executeUpdate();
 
             if (rowAffected == 0) {
-                System.out.println("Student deletion failed");
+                throw new RuntimeException("Student deletion failed id " +id+ " Not Found");
             } else {
                 System.out.println("Student deletion successful");
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getStackTrace());
+            System.out.println(e.getMessage());
         }
 
     }
@@ -154,7 +154,7 @@ public class StudentRepository {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getStackTrace());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -173,7 +173,7 @@ public class StudentRepository {
             if (resultSet == true) {
                 System.out.println("operation done");
             } else {
-                System.out.println("operation unsuccessful");
+                throw new RuntimeException("Operation is failed");
             }
 
         } catch (SQLException e) {
