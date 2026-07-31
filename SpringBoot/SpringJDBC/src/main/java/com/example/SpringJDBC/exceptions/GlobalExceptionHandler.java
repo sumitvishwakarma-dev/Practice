@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class GlobalExceptionHandler extends RuntimeException{
 
     @ExceptionHandler(ConnectionErrorException.class)
-    public ResponseEntity<ExceptionResponseDTO> getResourceNotFound(ConnectionErrorException connectionErrorException,
+    public ResponseEntity<ExceptionResponseDTO> handleConnectionError(ConnectionErrorException connectionErrorException,
                                                                     HttpServletRequest httpServletRequest){
 
         ExceptionResponseDTO exceptionResponseDTO = new ExceptionResponseDTO(
@@ -31,7 +31,7 @@ public class GlobalExceptionHandler extends RuntimeException{
 
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ExceptionResponseDTO> getResourceNotFound(ResourceNotFoundException resourceNotFoundException,
+    public ResponseEntity<ExceptionResponseDTO> handleResourceNotFound(ResourceNotFoundException resourceNotFoundException,
                                                                    HttpServletRequest httpServletRequest){
 
         ExceptionResponseDTO exceptionResponseDTO = new ExceptionResponseDTO(
@@ -39,6 +39,42 @@ public class GlobalExceptionHandler extends RuntimeException{
                 HttpStatus.NOT_FOUND.value(),
                 HttpStatus.NOT_FOUND.getReasonPhrase(),
                 resourceNotFoundException.getMessage(),
+                httpServletRequest.getRequestURI()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(exceptionResponseDTO);
+
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionResponseDTO> handleException(Exception exception,
+                                                                HttpServletRequest httpServletRequest){
+
+        ExceptionResponseDTO exceptionResponseDTO = new ExceptionResponseDTO(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(),
+                exception.getMessage(),
+                httpServletRequest.getRequestURI()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(exceptionResponseDTO);
+
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ExceptionResponseDTO> handleException(RuntimeException runTimeException,
+                                                                HttpServletRequest httpServletRequest){
+
+        ExceptionResponseDTO exceptionResponseDTO = new ExceptionResponseDTO(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(),
+                runTimeException.getMessage(),
                 httpServletRequest.getRequestURI()
         );
 
