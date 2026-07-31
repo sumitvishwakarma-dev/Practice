@@ -9,7 +9,7 @@ public class StudentRepository {
     String password = "";
 
 
-    public void createStudent(Student student) {
+    public Student createStudent(Student student) {
 
         String sql = """
                 INSERT INTO students(name,email,age)
@@ -17,7 +17,8 @@ public class StudentRepository {
                 """;
         try (
                 Connection connection = DriverManager.getConnection(url, username, password);
-                PreparedStatement statement = connection.prepareStatement(sql);
+                PreparedStatement statement = connection.prepareStatement(sql,
+                        Statement.RETURN_GENERATED_KEYS);
         ) {
 
             statement.setString(1, student.getName());
@@ -26,16 +27,26 @@ public class StudentRepository {
 
             int rowAffected = statement.executeUpdate();
 
+            Long id = 0L;
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                while (generatedKeys.next()) {
+                    id = generatedKeys.getLong(1);
+                }
+            }
+
             if (rowAffected == 0) {
                 System.out.println("Student creation failed");
             } else {
-                System.out.println("Student creation successful");
+                student.setId(id);
+                return student;
             }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
+        return student;
     }
 
 
