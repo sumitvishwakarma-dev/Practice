@@ -34,4 +34,7 @@ public class Student {
     @Enumerated(EnumType.STRING)
     private StudentStatus status;
 
+    @Lob
+    private String description;
+
 }
