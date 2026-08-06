@@ -3,7 +3,6 @@ package com.sumitdev.SpringHibernate.repository;
 import com.sumitdev.SpringHibernate.model.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

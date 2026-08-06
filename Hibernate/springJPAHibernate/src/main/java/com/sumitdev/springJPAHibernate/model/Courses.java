@@ -1,27 +1,26 @@
 package com.sumitdev.springJPAHibernate.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class Student {
+@Entity
+public class Courses {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String courseName;
 
-    @ManyToOne
-    @JoinColumn(name = "dept_id")
-    private Department department;
+    @ManyToMany(mappedBy = "courses")
+    private List<Student2> student = new ArrayList<>();
 
 }

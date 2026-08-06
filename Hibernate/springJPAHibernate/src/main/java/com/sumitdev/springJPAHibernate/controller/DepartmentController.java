@@ -24,10 +24,10 @@ public class DepartmentController {
 
 
     @PostMapping("/withStudentName")
-    public ResponseEntity<Department> saveDepartment(@RequestBody Department department,
-                                                     @RequestParam String studentName ){
-        Department departmentResponse = departmentService.saveDepartment(department, studentName);
-        return ResponseEntity.ok(departmentResponse);
+    public ResponseEntity<String> saveDepartment(@RequestBody Department department,
+                               @RequestParam String studentName ){
+        departmentService.saveDepartmentWithStudent(department, studentName);
+        return ResponseEntity.ok("Done");
     }
 
     @DeleteMapping

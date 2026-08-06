@@ -23,9 +23,9 @@ public class StudentController {
     }
 
     @PostMapping("/withDepartment")
-    public ResponseEntity<Student> saveStudent(@RequestBody Student student,
-                                               @RequestParam String name){
-        Student studentResponse = studentService.saveStudent(student,name);
+    public ResponseEntity<Student> saveStudentWithDeptName(@RequestBody Student student,
+                                                           @RequestParam String name){
+        Student studentResponse = studentService.saveStudentWitjDeptName(student,name);
         return ResponseEntity.ok(studentResponse);
     }
 

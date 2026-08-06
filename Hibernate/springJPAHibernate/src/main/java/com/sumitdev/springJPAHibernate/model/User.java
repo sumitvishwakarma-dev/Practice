@@ -1,27 +1,23 @@
 package com.sumitdev.springJPAHibernate.model;
 
+
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class Student {
+@Entity
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String userName;
 
-    @ManyToOne
-    @JoinColumn(name = "dept_id")
-    private Department department;
-
+    @OneToOne(mappedBy = "user")
+    private Profile profile;
 }

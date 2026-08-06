@@ -17,15 +17,13 @@ public class DepartmentRepository {
         return department;
     }
 
-
-    public Department getDepartment(Long id){
+    public Department getDepartmentById(Long id){
         return entityManager.find(Department.class,id);
     }
 
-    public Department getDepartment(String deptName){
+    public Department getDepartmentByDeptname(String deptName){
         return entityManager.find(Department.class,deptName);
     }
-
 
     public String deleteDepartment(Long id){
         entityManager.remove(id);
