@@ -1,13 +1,34 @@
 package com.sumitdev.SpringSecurity.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.sumitdev.SpringSecurity.dto.UserRegisterRequestDto;
+import com.sumitdev.SpringSecurity.dto.UserRegisterResponseDto;
+import com.sumitdev.SpringSecurity.services.AuthService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
 
-    public void create(){
+    private AuthService authService;
 
+    UserController(AuthService authService){
+        this.authService = authService;
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<UserRegisterResponseDto> register(@RequestBody UserRegisterRequestDto userRegisterRequestDto){
+
+        UserRegisterResponseDto userRegisterResponseDto= authService.register(userRegisterRequestDto);
+
+        return ResponseEntity.ok(userRegisterResponseDto);
+
+    }
+
+    @GetMapping("/token")
+    public CsrfToken getToken(CsrfToken csrfToken) {
+        return csrfToken;
     }
 }
