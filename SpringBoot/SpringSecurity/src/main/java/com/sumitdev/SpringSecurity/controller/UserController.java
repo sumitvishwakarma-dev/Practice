@@ -18,6 +18,11 @@ public class UserController {
         this.authService = authService;
     }
 
+    @GetMapping("/hello")
+    public String hello(){
+        return "Hello";
+    }
+
     @PostMapping("/register")
     public ResponseEntity<UserRegisterResponseDto> register(@RequestBody UserRegisterRequestDto userRegisterRequestDto){
 

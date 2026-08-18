@@ -19,9 +19,12 @@ public class AuthService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
 
-    AuthService(UserRepository userRepository){
+    AuthService(UserRepository userRepository,
+                RoleRepository roleRepository){
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
+
 
     public UserRegisterResponseDto register(UserRegisterRequestDto userRegisterRequestDto) {
 
