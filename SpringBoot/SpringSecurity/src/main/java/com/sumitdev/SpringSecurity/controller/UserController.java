@@ -4,6 +4,7 @@ import com.sumitdev.SpringSecurity.dto.UserRegisterRequestDto;
 import com.sumitdev.SpringSecurity.dto.UserRegisterResponseDto;
 import com.sumitdev.SpringSecurity.services.AuthService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +20,8 @@ public class UserController {
     }
 
     @GetMapping("/hello")
-    public String hello(){
-        return "Hello";
+    public String hello(Authentication authentication){
+        return "Hello, you are successfully logged in " + authentication.getName();
     }
 
     @PostMapping("/register")
