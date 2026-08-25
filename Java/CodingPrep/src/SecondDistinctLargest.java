@@ -1,3 +1,8 @@
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class SecondDistinctLargest {
 
     public static void main(String[] args) {
@@ -8,6 +13,27 @@ public class SecondDistinctLargest {
     }
 
     public static int secondLargest( int [] arr){
+
+        List<Integer> list = List.of(1,2,3,2,3,4,5);
+        Map<Integer,String> map = Map.of(1,"Sumit", 2,"Amit");
+        System.out.println(map);
+        System.out.println(list);
+
+        int [][] arr2 = {
+                {1,2,3},
+                {25,3,21,1}
+        };
+
+        List<Integer> list2 = Arrays.asList(arr2).
+                stream()
+                .flatMapToInt(Arrays::stream)
+                .boxed()
+                .collect(Collectors.toList());
+        System.out.println(list2);
+
+
+
+
         int n = arr.length;
 
         if(n == 1){
