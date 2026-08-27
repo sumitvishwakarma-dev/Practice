@@ -1,5 +1,7 @@
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 public class AnagramPair {
         public static void main(String[] args) {
 
@@ -13,12 +15,11 @@ public class AnagramPair {
                     "aman",
                     "atim"
             };
-            List<List<String>> list = pairAccrodingToAlpha(names);
-            System.out.println(list);
+           pairAccrodingToAlpha(names);
 
         }
 
-        public static List<List<String>> pairAccrodingToAlpha(String [] strs){
+        public static void pairAccrodingToAlpha(String [] strs){
 
             Map<String, List<String>> map = new HashMap<>();
             for(String str : strs){
@@ -27,7 +28,8 @@ public class AnagramPair {
                 String key = new String(ch);
                 map.computeIfAbsent(key, k -> new ArrayList<>()).add(str);
             }
+            map.forEach((key, value) ->
+                    System.out.println(key + " → " + value));
 
-            return new ArrayList<>(map.values());
         }
 }

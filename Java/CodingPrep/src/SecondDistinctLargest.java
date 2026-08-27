@@ -19,15 +19,13 @@ public class SecondDistinctLargest {
         System.out.println(map);
         System.out.println(list);
 
-        int [][] arr2 = {
+        Integer [][] arr2 = {
                 {1,2,3},
                 {25,3,21,1}
         };
 
-        List<Integer> list2 = Arrays.asList(arr2).
-                stream()
-                .flatMapToInt(Arrays::stream)
-                .boxed()
+        List<Integer> list2 = Arrays.asList(arr2).stream()
+                .flatMap(Arrays::stream)
                 .collect(Collectors.toList());
         System.out.println(list2);
 
