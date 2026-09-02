@@ -16,8 +16,7 @@ public class SecondDistinctLargest {
 
         List<Integer> list = List.of(1,2,3,2,3,4,5);
         Map<Integer,String> map = Map.of(1,"Sumit", 2,"Amit");
-        System.out.println(map);
-        System.out.println(list);
+
 
         Integer [][] arr2 = {
                 {1,2,3},
