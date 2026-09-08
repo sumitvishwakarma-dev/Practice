@@ -9,12 +9,22 @@ public class LinkedListWithArray {
         Node temp = headStart;
 
         while(temp != null){
-            System.out.println(temp.data);
+            System.out.print(temp.data+" ");
             temp = temp.next;
         }
 
-        System.out.println("Length of Linked List is : "+countLengthOfLL(headStart));
+        System.out.println("\nLength of Linked List is : "+countLengthOfLL(headStart));
         System.out.println("Value present in Linked List : "+isPresent(headStart, 6));
+
+        System.out.println("Before deletion of Head value is : "+headStart.data);
+        System.out.println("After deletion of Head value is : "+deleteHead(headStart).data);
+
+        while(temp != null){
+            System.out.print(temp.data+" ");
+            temp = temp.next;
+        }
+
+
 
 
     }
@@ -55,6 +65,15 @@ public class LinkedListWithArray {
             temp = temp.next;
         }
         return present;
+    }
+
+    static Node deleteHead(Node head){
+
+        if(head == null) return head;
+        Node temp = head;
+        head = head.next;
+        return head;
+
     }
 }
 
