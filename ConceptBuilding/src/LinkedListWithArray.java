@@ -14,6 +14,8 @@ public class LinkedListWithArray {
         }
 
         System.out.println("Length of Linked List is : "+countLengthOfLL(headStart));
+        System.out.println("Value present in Linked List : "+isPresent(headStart, 6));
+
 
     }
 
@@ -39,6 +41,20 @@ public class LinkedListWithArray {
             mover=temp;
         }
         return head;
+    }
+
+    static boolean isPresent(Node head, int value){
+
+        boolean present= false;
+
+        Node temp = head;
+        while( temp != null){
+            if(temp.data == value){
+                present = true;
+            }
+            temp = temp.next;
+        }
+        return present;
     }
 }
 
