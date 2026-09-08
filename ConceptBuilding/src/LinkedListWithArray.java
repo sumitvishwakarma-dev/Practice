@@ -17,11 +17,16 @@ public class LinkedListWithArray {
         System.out.println("Value present in Linked List : "+isPresent(headStart, 6));
 
         System.out.println("Before deletion of Head value is : "+headStart.data);
-        System.out.println("After deletion of Head value is : "+deleteHead(headStart).data);
+        headStart = deleteHead(headStart);
+        System.out.println("After deletion of Head value is : "+headStart.data);
 
-        while(temp != null){
-            System.out.print(temp.data+" ");
-            temp = temp.next;
+        Node newTemp = headStart;
+
+        System.out.print("After deletion of Head Linked List is : ");
+
+        while(newTemp != null){
+            System.out.print(newTemp.data+" ");
+            newTemp = newTemp.next;
         }
 
 
