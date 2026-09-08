@@ -20,6 +20,9 @@ public class RunnableAndCallable {
                 }
         );
 
+        /*Future is used here to wait for the response if we use Integer value then
+        it might possible value not get into value variable
+        Future holds the result of asynchronous tasks */
         Future<Integer> future =  executorService.submit(
                 () -> {
                     System.out.println("Callable will be in "+Thread.currentThread().getName());
@@ -32,6 +35,8 @@ public class RunnableAndCallable {
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
+
+        executorService.shutdown();
 
     }
 }
