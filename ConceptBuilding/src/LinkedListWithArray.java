@@ -13,6 +13,19 @@ public class LinkedListWithArray {
             temp = temp.next;
         }
 
+        System.out.println("Length of Linked List is : "+countLengthOfLL(headStart));
+
+    }
+
+    static int countLengthOfLL(Node head){
+        Node temp = head;
+        int count = 0;
+
+        while(temp != null){
+            temp=temp.next;
+            count++;
+        }
+        return count;
     }
 
    static Node convertToLL(int [] arrPass){
