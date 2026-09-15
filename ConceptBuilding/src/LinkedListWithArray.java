@@ -22,7 +22,7 @@ public class LinkedListWithArray {
 
         Node newTemp = headStart;
 
-        System.out.print("After deletion of Head Linked List is : ");
+        System.out.print("After deletion of Head Linked List : ");
 
         while(newTemp != null){
             System.out.print(newTemp.data+" ");
