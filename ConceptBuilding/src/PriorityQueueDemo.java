@@ -1,3 +1,4 @@
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class PriorityQueueDemo {
@@ -16,5 +17,27 @@ public class PriorityQueueDemo {
         System.out.println("Poll: "+q.poll());
         System.out.println("Queue Element after Poll : "+q);
 
+        System.out.println("/////// PRIORITY QUEUE USING COMPARATOR ////////");
+
+        PriorityQueue pr = new PriorityQueue<>(15 , new MyComparatorForPriorityQ());
+        pr.offer("Sumit");
+        pr.offer("Amit");
+        pr.offer("Aman");
+        pr.offer("Atul");
+
+        System.out.println("Priority Queue : " +pr);
+
     }
+}
+
+class MyComparatorForPriorityQ implements Comparator{
+
+    public int compare(Object obj1 , Object obj2){
+
+        String str1 = (String) obj1;
+        String str2 = obj2.toString();
+        return str2.compareTo(str1);
+
+    }
+
 }
