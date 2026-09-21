@@ -1,17 +1,36 @@
 package com.sumitdev.journal.entity;
 
+
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.LocalDateTime;
+
+@Document(collection = "journal_entries")
 public class JournalEntity {
 
-    private long id;
+    @Id
+    private ObjectId id;
 
     private String title;
     private String content;
 
-    public long getId() {
+    private LocalDateTime localdate;
+
+    public LocalDateTime getLocaldate() {
+        return localdate;
+    }
+
+    public void setLocaldate(LocalDateTime localdate) {
+        this.localdate = localdate;
+    }
+
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
