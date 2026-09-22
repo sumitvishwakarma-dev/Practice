@@ -4,6 +4,8 @@ import com.sumitdev.journal.JournalApplication;
 import com.sumitdev.journal.entity.JournalEntity;
 import com.sumitdev.journal.services.JournalService;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,32 +24,49 @@ public class JournalController {
         this.journalService = journalService;
     }
 
-    // Map<Long, JournalEntity> journalEntity = new HashMap<>();
-
     @GetMapping()
-    public List<JournalEntity> getJournal(){
-        return journalService.getJournal();
+    public ResponseEntity<?> getJournal(){
+        List<JournalEntity> list = journalService.getJournal();
+
+        if(list != null && !list.isEmpty()){
+            return new ResponseEntity(list, HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping()
-    public JournalEntity saveJournal(@RequestBody JournalEntity journal){
-        return journalService.saveJournal(journal);
+    public ResponseEntity<?> saveJournal(@RequestBody JournalEntity journal){
+        try {
+            JournalEntity journal1 =  journalService.saveJournal(journal);
+            return new ResponseEntity<>(journal1, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/id/{myId}")
-    public JournalEntity getJournalById(@PathVariable ObjectId myId){
-        return journalService.getJournalById(myId);
+    public ResponseEntity<JournalEntity> getJournalById(@PathVariable ObjectId myId){
+        JournalEntity response =  journalService.getJournalById(myId);
+        if (response != null){
+            return new ResponseEntity<>(response, HttpStatus.FOUND);
+        }else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
     }
 
     @PutMapping("/id/{myId}")
-    public JournalEntity updateJournal(@PathVariable ObjectId myId,
+    public ResponseEntity<JournalEntity> updateJournal(@PathVariable ObjectId myId,
                                      @RequestBody JournalEntity entity){
-        return journalService.updateJournal(myId, entity);
+        JournalEntity response =  journalService.updateJournal(myId, entity);
+        if (response !=null)
+            return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
+        else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{myId}")
-    public void deleteJournal(@PathVariable ObjectId myId){
+    public ResponseEntity deleteJournal(@PathVariable ObjectId myId){
         journalService.removeJournal(myId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 
