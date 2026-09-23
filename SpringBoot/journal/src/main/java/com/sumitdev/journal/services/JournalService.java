@@ -1,7 +1,9 @@
 package com.sumitdev.journal.services;
 
 import com.sumitdev.journal.entity.JournalEntity;
+import com.sumitdev.journal.entity.UserEntity;
 import com.sumitdev.journal.repository.JournalRepository;
+import com.sumitdev.journal.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +16,20 @@ public class JournalService {
 
     private JournalRepository journalRepository;
 
-    JournalService(JournalRepository journalRepository){
+    private UserService userService;
+
+    JournalService(JournalRepository journalRepository,
+                   UserService userService){
         this.journalRepository = journalRepository;
+        this.userService=userService;
     }
 
-    public JournalEntity saveJournal(JournalEntity journal) {
+    public void saveJournal(JournalEntity journal,String username) {
+        UserEntity user = userService.getUserByUsername(username);
         journal.setLocaldate(LocalDateTime.now());
-        return journalRepository.save(journal);
+        JournalEntity journalSave = journalRepository.save(journal);
+        user.getJournalEntityList().add(journalSave);
+        userService.addUser(user);
     }
 
     public List<JournalEntity> getJournal() {

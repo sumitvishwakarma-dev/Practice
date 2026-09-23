@@ -2,7 +2,10 @@ package com.sumitdev.journal.controller;
 
 import com.sumitdev.journal.JournalApplication;
 import com.sumitdev.journal.entity.JournalEntity;
+import com.sumitdev.journal.entity.UserEntity;
+import com.sumitdev.journal.repository.UserRepository;
 import com.sumitdev.journal.services.JournalService;
+import com.sumitdev.journal.services.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +23,19 @@ public class JournalController {
 
     private JournalService journalService;
 
-    JournalController(JournalService journalService){
+    private UserService userService;
+
+    JournalController(JournalService journalService,
+                      UserService userService){
         this.journalService = journalService;
+        this.userService = userService;
     }
 
-    @GetMapping()
-    public ResponseEntity<?> getJournal(){
-        List<JournalEntity> list = journalService.getJournal();
+    @GetMapping("{username}")
+    public ResponseEntity<?> getJournal(@PathVariable String username){
+        UserEntity user = userService.getUserByUsername(username);
+
+        List<JournalEntity> list = user.getJournalEntityList();
 
         if(list != null && !list.isEmpty()){
             return new ResponseEntity(list, HttpStatus.OK);
@@ -35,11 +44,12 @@ public class JournalController {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping()
-    public ResponseEntity<?> saveJournal(@RequestBody JournalEntity journal){
+    @PostMapping("{username}")
+    public ResponseEntity<?> saveJournal(@RequestBody JournalEntity journal,
+                                         @PathVariable String username){
         try {
-            JournalEntity journal1 =  journalService.saveJournal(journal);
-            return new ResponseEntity<>(journal1, HttpStatus.CREATED);
+            journalService.saveJournal(journal, username);
+            return new ResponseEntity<>(journal, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
