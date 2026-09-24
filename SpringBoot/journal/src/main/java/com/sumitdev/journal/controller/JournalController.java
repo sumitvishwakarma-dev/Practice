@@ -64,18 +64,19 @@ public class JournalController {
 
     }
 
-    @PutMapping("/id/{myId}")
+    @PutMapping("/{username}/{myId}")
     public ResponseEntity<JournalEntity> updateJournal(@PathVariable ObjectId myId,
-                                     @RequestBody JournalEntity entity){
+                                                       @RequestBody JournalEntity entity,
+                                                       @PathVariable String username){
         JournalEntity response =  journalService.updateJournal(myId, entity);
         if (response !=null)
             return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
         else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/{myId}")
-    public ResponseEntity deleteJournal(@PathVariable ObjectId myId){
-        journalService.removeJournal(myId);
+    @DeleteMapping("/{username}/{myId}")
+    public ResponseEntity deleteJournal(@PathVariable ObjectId myId, @PathVariable String username){
+        journalService.removeJournal(myId , username);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 

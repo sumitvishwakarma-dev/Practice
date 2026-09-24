@@ -5,6 +5,8 @@ import com.sumitdev.journal.entity.UserEntity;
 import com.sumitdev.journal.repository.JournalRepository;
 import com.sumitdev.journal.repository.UserRepository;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -32,6 +34,10 @@ public class JournalService {
         userService.addUser(user);
     }
 
+    public void saveJournal(JournalEntity journal) {
+        journalRepository.save(journal);
+    }
+
     public List<JournalEntity> getJournal() {
         return journalRepository.findAll();
     }
@@ -49,12 +55,15 @@ public class JournalService {
             journal.setTitle(entity.getTitle() != null && !entity.getTitle().equals("") ? entity.getTitle() : journal.getTitle());
             journal.setContent(entity.getContent() != null && ! entity.getContent().equals("") ? entity.getContent() : journal.getContent());
             journal.setLocaldate(LocalDateTime.now());
-
+            saveJournal(journal);
         }
-       return journalRepository.save(journal);
+        return journal;
     }
 
-    public void removeJournal(ObjectId myId) {
+    public void removeJournal(ObjectId myId, String username) {
+        UserEntity user = userService.getUserByUsername(username);
+        user.getJournalEntityList().removeIf(x -> x.getId().equals(myId));
          journalRepository.deleteById(myId);
+         userService.addUser(user);
     }
 }
