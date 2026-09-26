@@ -8,6 +8,7 @@ import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,6 +27,7 @@ public class JournalService {
         this.userService=userService;
     }
 
+    @Transactional
     public void saveJournal(JournalEntity journal,String username) {
         UserEntity user = userService.getUserByUsername(username);
         journal.setLocaldate(LocalDateTime.now());
@@ -38,9 +40,6 @@ public class JournalService {
         journalRepository.save(journal);
     }
 
-    public List<JournalEntity> getJournal() {
-        return journalRepository.findAll();
-    }
 
     public JournalEntity getJournalById(ObjectId myId) {
         Optional<JournalEntity> op = journalRepository.findById(myId);
@@ -60,10 +59,13 @@ public class JournalService {
         return journal;
     }
 
+    @Transactional
     public void removeJournal(ObjectId myId, String username) {
         UserEntity user = userService.getUserByUsername(username);
-        user.getJournalEntityList().removeIf(x -> x.getId().equals(myId));
-         journalRepository.deleteById(myId);
-         userService.addUser(user);
+        boolean b = user.getJournalEntityList().removeIf(x -> x.getId().equals(myId));
+        if(b){
+            journalRepository.deleteById(myId);
+            userService.addUser(user);
+        }
     }
 }

@@ -21,7 +21,11 @@ public class UserService {
     }
 
     public UserEntity addUser(UserEntity user) {
-        return userRepository.save(user);
+        UserEntity isUserPresent = getUserByUsername(user.getUsername());
+        if (isUserPresent == null)
+            return userRepository.save(user);
+        else
+            return isUserPresent;
     }
 
     public List<UserEntity> getUser() {
