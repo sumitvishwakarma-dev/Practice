@@ -30,4 +30,6 @@ public class UserEntity {
     @DBRef
     private List<JournalEntity> journalEntityList = new ArrayList<>();
 
+    private List<String> roles;
+
 }

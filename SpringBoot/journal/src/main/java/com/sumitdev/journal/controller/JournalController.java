@@ -9,6 +9,7 @@ import com.sumitdev.journal.services.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/app/journal/")
+@RequestMapping("/v1/journal/")
 public class JournalController {
 
     private JournalService journalService;
@@ -78,6 +79,11 @@ public class JournalController {
     public ResponseEntity deleteJournal(@PathVariable ObjectId myId, @PathVariable String username){
         journalService.removeJournal(myId , username);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/csrf")
+    public CsrfToken getToken(CsrfToken token){
+        return token;
     }
 
 
